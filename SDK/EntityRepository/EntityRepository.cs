@@ -8,13 +8,12 @@ using SDK.EntityRepository.Entities;
 
 namespace SDK.EntityRepository
 {
-    public class EntityRepository<T, TContext> : IEntityRepository<T>
+    public class EntityRepository<T> : IEntityRepository<T>
         where T : Entity
-        where TContext : DbContext
     {
-        protected readonly TContext Context;
+        protected readonly DbContext Context;
 
-        public EntityRepository(TContext context)
+        public EntityRepository(DbContext context)
         {
             Context = context;
         }

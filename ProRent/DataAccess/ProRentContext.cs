@@ -9,6 +9,8 @@ namespace ProRent.DataAccess
         public ProRentContext(DbContextOptions<ProRentContext> options, IConfiguration configuration)
             : base(options) { }
 
-        public DbSet<TestEntity> Tests { get; set; }
+        public DbSet<RealEstate> RealEstates { get; set; }
+
+        public DbSet<Room> Room { get; set; }
     }
 }

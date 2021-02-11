@@ -10,8 +10,8 @@ using ProRent.DataAccess;
 namespace ProRent.Migrations
 {
     [DbContext(typeof(ProRentContext))]
-    [Migration("20210210233422_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20210211002531_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,24 @@ namespace ProRent.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.3")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+            modelBuilder.Entity("ProRent.Domain.Models.RealEstate", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Neighborhood")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RealEstates");
+                });
 
             modelBuilder.Entity("ProRent.Domain.Models.TestEntity", b =>
                 {
