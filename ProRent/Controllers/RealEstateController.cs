@@ -14,16 +14,16 @@ namespace ProRent.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class RealEstateController : ControllerBase
     {
         private readonly EntityRepository<RealEstate> _realEstateRepository;
 
-        public ValuesController(EntityRepository<RealEstate> realEstateRepository)
+        public RealEstateController(EntityRepository<RealEstate> realEstateRepository)
         {
             _realEstateRepository = realEstateRepository;
         }
 
-        // GET: api/<ValuesController>
+        // GET: api/<RealEstateController>
         [HttpGet]
         public async Task<IEnumerable<RealEstate>> Get()
         {
@@ -39,7 +39,7 @@ namespace ProRent.Controllers
             return realStates;
         }
 
-        // GET api/<ValuesController>/5
+        // GET api/<RealEstateController>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
@@ -52,17 +52,17 @@ namespace ProRent.Controllers
             return new { max, min };
         }
 
-        // POST api/<ValuesController>
+        // POST api/<RealEstateController>
         [HttpPost]
         public void Post([FromBody] string value)
         { }
 
-        // PUT api/<ValuesController>/5
+        // PUT api/<RealEstateController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         { }
 
-        // DELETE api/<ValuesController>/5
+        // DELETE api/<RealEstateController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         { }
