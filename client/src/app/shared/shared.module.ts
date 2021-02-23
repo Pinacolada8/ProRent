@@ -16,7 +16,6 @@ import { CustomSearchBarComponent } from "./components/custom-search-bar/custom-
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from "ng-pick-datetime";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { CustomModalComponent } from './components/custom-modal/custom-modal.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +27,6 @@ import { CustomModalComponent } from './components/custom-modal/custom-modal.com
     UnauthorizedPageComponent,
     CustomTableComponent,
     CustomSearchBarComponent,
-    CustomModalComponent,
   ],
   imports: [
     CommonModule,

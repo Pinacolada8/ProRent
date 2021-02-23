@@ -19,28 +19,19 @@ import { ToastService } from "src/app/services/toast.service";
   providedIn: "root",
 })
 export class HttpInterceptorService implements HttpInterceptor {
-  // private functions
-  private b64EncodeUnicode(str) {
-    return btoa(
-      encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (match, p1) => {
-        return String.fromCharCode(parseInt(p1, 16));
-      })
-    );
-  }
 
   constructor(protected toast: ToastService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let urlCodeChanger: string;
     if (req.url !== "") {
-      console.log("TEST0","-", req.url[0],"-", req.url[1], req.url, req.url.trim()[0]);
       urlCodeChanger = req.url[0];
     }
 
     if (urlCodeChanger === "@") {
       return next.handle(req.clone({ url: req.url.substr(1) }));
     }
-console.log("Test",req.url, urlCodeChanger, req.url.length, req.url.trim().length);
+
     if (urlCodeChanger === "#" || urlCodeChanger !== "/") {
       const noChangeReq = req.clone({ url: req.url.substr(1) });
       return next.handle(noChangeReq).pipe(

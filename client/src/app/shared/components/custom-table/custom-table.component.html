@@ -21,7 +21,7 @@
         [ngClass]="columnDefinition.customCellClass"
         (click)="
           columnDefinition.onClick
-            ? columnDefinition.onClick(element, columnDefinition, $event)
+            ? columnDefinition.onClick(element, columnDefinition, $event, instance)
             : undefined
         "
         ><mat-form-field *ngIf="!columnDefinition.isButton" floatLabel="never" appearance="none">
