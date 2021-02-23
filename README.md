@@ -1,14 +1,12 @@
-# LBD - Sistema de envio de trabalhos
+# LAB ES - ProRent
 
 **Description**:  ...
 
-  - Developed in Java Spring Boot
   - Cross Platform (Windows, Linux, MacOS)
   - **Status**:  On Development.
 
 ## Dependencies
-
-  - JAVA SPRING BOT
+  - ASP.NET 5.0
   - ANGULAR
   - NODE
 
@@ -25,10 +23,8 @@
 
 
 ## Contributors
-- Beatriz Siqueira
 - Eduardo Alves de Freitas
 - Matheus Dutra Cerbino
-- Sinval de Deus
 
 ## ISSUES
 
@@ -38,5 +34,5 @@ If you have questions, concerns, bug reports, etc, please file an issue in this 
 
 ## Credits and references
 
-1. Project made as a homework for "Banco de Dados" class of CEFET-MG college.
-2. Project GitHub [GitHub](https://github.com/SinvalVJunior/Eldoom)
+1. Project made as a homework for "Engenhari de Software" class of CEFET-MG college.
+2. Project GitHub [GitHub](https://github.com/Pinacolada8/ProRent)
