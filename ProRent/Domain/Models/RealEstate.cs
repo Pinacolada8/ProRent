@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using ProRent.Domain.Enums;
+﻿using ProRent.Domain.Enums;
 using SDK.EntityRepository.Entities;
+using System.Collections.Generic;
 
-namespace ProRent.Domain.Models {
+namespace ProRent.Domain.Models
+{
     public class RealEstate : Entity
     {
 
@@ -11,9 +11,17 @@ namespace ProRent.Domain.Models {
 
         public string Name { get; set; }
 
-        public string Address { get; set; }
+        public int Number { get; set; }
+
+        public string Street { get; set; }
 
         public string Neighborhood { get; set; }
+
+        public string City { get; set; }
+
+        public string State { get; set; }
+
+        public string Country { get; set; }
 
         public int BedRoomQt { get; set; }
 
@@ -36,7 +44,5 @@ namespace ProRent.Domain.Models {
         public double RentValue { get; set; }
 
         public bool? Doorman { get; set; }
-
-        public virtual IEnumerable<Room> Rooms { get; set; }
     }
 }

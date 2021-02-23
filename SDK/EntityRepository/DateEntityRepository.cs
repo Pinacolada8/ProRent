@@ -18,6 +18,10 @@ namespace SDK.EntityRepository
         {
             Context = context;
         }
+        public DbContext GetContext()
+        {
+            return Context;
+        }
 
         #region Read Methods
 

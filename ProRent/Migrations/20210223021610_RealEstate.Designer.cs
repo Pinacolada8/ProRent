@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ProRent.DataAccess;
@@ -9,9 +10,10 @@ using ProRent.DataAccess;
 namespace ProRent.Migrations
 {
     [DbContext(typeof(ProRentContext))]
-    partial class ProRentContextModelSnapshot : ModelSnapshot
+    [Migration("20210223021610_RealEstate")]
+    partial class RealEstate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

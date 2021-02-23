@@ -2,7 +2,7 @@
 {
     public enum RealEstateType
     {
-        HOUSE=0,
+        HOUSE = 0,
         APARTMENT
     }
 }
