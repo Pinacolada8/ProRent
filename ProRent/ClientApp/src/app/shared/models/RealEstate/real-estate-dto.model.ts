@@ -1,6 +1,7 @@
-import { RealEstateType } from 'src/app/shared/enums/real-estate-type.enum';
+import { RealEstateTypeToString } from "src/app/shared/enums/real-estate-type.enum";
+import { RealEstateType } from "src/app/shared/enums/real-estate-type.enum";
 export class RealEstateDTO {
-  type: RealEstateType = RealEstateType.HOUSE;
+  type: string = RealEstateTypeToString(RealEstateType.HOUSE);
   name: string;
   number: number;
   street: string;

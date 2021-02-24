@@ -1,7 +1,9 @@
+import { RealEstateVisistDTO } from "./../../../shared/models/RealEstateVisits/real-estate-visist-dto.model";
+import { NewRealEstateVisitComponent } from "./../components/new-real-estate-visit/new-real-estate-visit.component";
 import { isNullOrUndefined } from "src/app/shared/Functions/value-checks";
 import { RealEstateDTO } from "src/app/shared/models/RealEstate/real-estate-dto.model";
 import { RealEstateModal } from "./models/real-estate-modal";
-import { NewRealEstateComponent } from "./new-real-estate/new-real-estate.component";
+import { NewRealEstateComponent } from "./components/new-real-estate/new-real-estate.component";
 import { RealEstateFilter } from "./../../../shared/models/RealEstate/real-estate-filter";
 import { Component, OnInit } from "@angular/core";
 import {
@@ -17,6 +19,7 @@ import { IRealEstateViewModel } from "src/app/shared/models/RealEstate/real-esta
 import { BaseApiService } from "src/app/services/base-api.service";
 import { MatDialog } from "@angular/material/dialog";
 import { ConfirmationModalService } from "src/app/shared/components/confrimation-modal/services/confirmation-modal.service";
+import { RealEstateVisitModal } from "../models/real-estate-visit-modal";
 
 @Component({
   templateUrl: "./realstates.component.html",
@@ -67,6 +70,16 @@ export class RealstatesComponent implements OnInit {
         name: "garageParkingSpace",
         displayName: "Garagem",
         allowSorting: true,
+      },
+      {
+        name: "Adicionar Visita",
+        customHeaderClass: "column-small",
+        customCellClass: "column-small",
+        isButton: true,
+        iconSvg: "add",
+        onClick: (element: IRealEstateViewModel) => {
+          this.addVisit(element.id);
+        },
       },
       {
         name: "Detalhes",
@@ -211,6 +224,22 @@ export class RealstatesComponent implements OnInit {
       if (result) this.deleteRealEstate(id);
       subs.unsubscribe();
     });
+  }
+
+  addVisit(realEstateId: number) {
+    const modal = this.dialog.open(NewRealEstateVisitComponent, {
+      data: new RealEstateVisitModal({
+        title: "Novo Visita",
+        realEstateId,
+      }),
+    });
+    modal.afterClosed().subscribe((realEstateVisit) => {
+      if (!isNullOrUndefined(realEstateVisit)) this.saveNewRealEstateVisit(realEstateVisit);
+    });
+  }
+
+  private saveNewRealEstateVisit(realEstateVisit: RealEstateVisistDTO) {
+    this.api.post(realEstateVisit,"/api/visit").subscribe((result) => {});
   }
 
   private saveNewRealEstate(realEstate: RealEstateDTO) {
