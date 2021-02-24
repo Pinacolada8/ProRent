@@ -19,7 +19,7 @@ export class RealEstateDTO {
   RentValue: number;
   Doorman?: boolean;
 
-  constructor(obj: Partial<RealEstateDTO>) {
+  constructor(obj: Partial<RealEstateDTO> = {}) {
     for (const prop of Object.keys(obj)) {
       this[prop] = obj[prop];
     }

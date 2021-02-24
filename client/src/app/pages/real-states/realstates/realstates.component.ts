@@ -1,3 +1,6 @@
+import { isNullOrUndefined } from "src/app/shared/Functions/value-checks";
+import { RealEstateDTO } from "src/app/shared/models/RealEstate/real-estate-dto.model";
+import { RealEstateModal } from "./models/real-estate-modal";
 import { NewRealEstateComponent } from "./new-real-estate/new-real-estate.component";
 import { RealEstateFilter } from "./../../../shared/models/RealEstate/real-estate-filter";
 import { Component, OnInit } from "@angular/core";
@@ -155,15 +158,45 @@ export class RealstatesComponent implements OnInit {
     );
   }
 
-  addNewRealEstate(filter?: RealEstateFilter) {
-    const modal = this.dialog.open(
-      NewRealEstateComponent,
-      {
-        data: {
-          filter,
-        },
-      }
-    );
-    modal.afterClosed().subscribe((result) => {});
+  details(id: number) {
+    this.api.get<RealEstateDTO>(id).subscribe((result) => {
+      const modal = this.dialog.open(NewRealEstateComponent, {
+        data: new RealEstateModal({
+          title: "Detalhes do Imovel",
+          disableEdition: true,
+          realEstate: result
+        }),
+      });
+    });
+  }
+
+  add(filter?: RealEstateFilter) {
+    const modal = this.dialog.open(NewRealEstateComponent, {
+      data: new RealEstateModal({
+        title: "Novo Registro de Imovel",
+        filter,
+      }),
+    });
+    modal.afterClosed().subscribe((result) => {
+      if (!isNullOrUndefined(result)) this.saveNewRealEstate(result);
+    });
+  }
+
+  private saveNewRealEstate(realEstate: RealEstateDTO) {
+    this.api.post(realEstate).subscribe((result) => {
+      this.refreshData();
+    });
+  }
+
+  private updateRealEstate(id: number, realEstate: RealEstateDTO) {
+    this.api.put(id, realEstate).subscribe((result) => {
+      this.refreshData();
+    });
+  }
+
+  private deleteRealEstate(id: number) {
+    this.api.delete(id).subscribe((result) => {
+      this.refreshData();
+    });
   }
 }
