@@ -6,6 +6,7 @@ using ProRent.Domain.ViewModels;
 using SDK.EntityRepository;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using ProRent.DataAccess.EntityRepositoryExtensions;
 using ProRent.Domain.DTO;
@@ -47,11 +48,25 @@ namespace ProRent.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<RealEstate>> Get([FromRoute] int id)
+        public async Task<ActionResult<RealEstateViewModel>> Get([FromRoute] int id)
         {
-            var realEstate = await _realEstateRepository.Find(id);
+            if (await _realEstateRepository.Find(id) == null)
+                return BadRequest("RealEstate with this id not found.");
 
-            return Ok(realEstate);
+            var realEstate = await _realEstateRepository.Find(id);
+            var realEstateViewModel = new RealEstateViewModel()
+            {
+                Area = Convert.ToInt32(realEstate.Area),
+                Name = realEstate.Name,
+                Address = realEstate.Street + ", " + realEstate.Neighborhood,
+                Type = realEstate.Type,
+                BedRoomQt = realEstate.BedRoomQt,
+                SuiteQt = realEstate.SuiteQt,
+                GarageParkingSpace = realEstate.GarageParkingSpace,
+                RentValue = realEstate.RentValue
+            };
+
+            return Ok(realEstateViewModel);
         }
 
 
@@ -129,7 +144,7 @@ namespace ProRent.Controllers
 
         // PUT api/<RealEstateController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult<RealEstate>> Put(int id, [FromBody] RealEstatePostDTO dto)
+        public async Task<ActionResult<RealEstate>> Put([FromRoute] int id, [FromBody] RealEstatePostDTO dto)
         {
             if (!dto.Area.HasValue)
                 return BadRequest("Property " + nameof(RealEstatePostDTO.Area) + " Needed.");
@@ -160,6 +175,9 @@ namespace ProRent.Controllers
 
             if (!dto.Closet.HasValue)
                 return BadRequest("Property " + nameof(RealEstatePostDTO.Closet) + " Needed.");
+
+            if (await _realEstateRepository.Find(id) == null)
+                return BadRequest("RealEstate with this id not found.");
 
             if (dto.Type == RealEstateType.APARTMENT)
             {
@@ -202,8 +220,10 @@ namespace ProRent.Controllers
 
         // DELETE api/<RealEstateController>/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> Delete([FromRoute] int id)
         {
+            if (await _realEstateRepository.Find(id) == null)
+                return BadRequest("RealEstate with this id not found.");
             await _realEstateRepository.Remove(id);
             return Ok();
         }
