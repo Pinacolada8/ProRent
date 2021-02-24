@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ProRent.DataAccess;
@@ -9,9 +10,10 @@ using ProRent.DataAccess;
 namespace ProRent.Migrations
 {
     [DbContext(typeof(ProRentContext))]
-    partial class ProRentContextModelSnapshot : ModelSnapshot
+    [Migration("20210223225210_Visit")]
+    partial class Visit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,37 +88,6 @@ namespace ProRent.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("RealEstates");
-                });
-
-            modelBuilder.Entity("ProRent.Domain.Models.Visit", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<long>("RealEstateId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTimeOffset>("VisitTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RealEstateId");
-
-                    b.ToTable("Visits");
-                });
-
-            modelBuilder.Entity("ProRent.Domain.Models.Visit", b =>
-                {
-                    b.HasOne("ProRent.Domain.Models.RealEstate", "RealEstate")
-                        .WithMany()
-                        .HasForeignKey("RealEstateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("RealEstate");
                 });
 #pragma warning restore 612, 618
         }

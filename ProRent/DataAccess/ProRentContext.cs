@@ -10,5 +10,7 @@ namespace ProRent.DataAccess
             : base(options) { }
 
         public DbSet<RealEstate> RealEstates { get; set; }
+
+        public DbSet<Visit> Visits { get; set; }
     }
 }
