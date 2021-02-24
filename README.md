@@ -22,6 +22,7 @@ Download and install .Net Core 5.0 and Node.
 ## Contributors
 - Eduardo Alves de Freitas
 - Matheus Dutra Cerbino
+- Vitor da Silva Monteiro
 
 ## ISSUES
 
