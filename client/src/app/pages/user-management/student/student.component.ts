@@ -156,12 +156,12 @@ export class StudentComponent implements OnInit {
   });
   searchBarFilter: StudentFilter = {};
 
-  constructor(private api: BaseApiService<Student>) {
+  constructor(private api: BaseApiService) {
     api.urlPath = "/api/v1/aluno";
   }
 
   getData() {
-    this.api.getFiltered(this.searchBarFilter).subscribe(
+    this.api.getFiltered<Student>(this.searchBarFilter).subscribe(
       (data) => {
         this.values = data;
       },

@@ -75,12 +75,12 @@ export class WorkComponent implements OnInit {
   });
   searchBarFilter: object = {};
 
-  constructor(private api: BaseApiService<Work>) {
+  constructor(private api: BaseApiService) {
     api.urlPath = "/api/v1/trabalho/autores";
   }
 
   getData() {
-    this.api.getFiltered(this.searchBarFilter).subscribe(
+    this.api.getFiltered<Work>(this.searchBarFilter).subscribe(
       (data) => {
         this.values = data;
       },

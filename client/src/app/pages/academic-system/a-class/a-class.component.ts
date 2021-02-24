@@ -67,12 +67,12 @@ export class AClassComponent implements OnInit {
   });
   searchBarFilter: AClassFilter = {};
 
-  constructor(private api: BaseApiService<AClass>) {
+  constructor(private api: BaseApiService) {
     api.urlPath = "/api/v1/turma";
   }
 
   getData() {
-    this.api.getFiltered(this.searchBarFilter).subscribe(
+    this.api.getFiltered<AClass>(this.searchBarFilter).subscribe(
       (data) => {
         this.values = data;
       },

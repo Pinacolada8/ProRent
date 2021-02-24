@@ -140,6 +140,11 @@ namespace SDK.EntityRepository
             return Remove(existingEntity);
         }
 
+        public DbContext GetContext()
+        {
+            return Context;
+        }
+
         #endregion
     }
 }

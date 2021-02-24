@@ -6,12 +6,12 @@ import { FilterToParams } from "src/app/shared/Functions/filter-functions";
 @Injectable({
   providedIn: "root",
 })
-export class BaseApiService<TResult> {
+export class BaseApiService {
   constructor(private api: HttpClient) {}
 
   urlPath: string = null;
 
-  getFiltered(filter: object): Observable<TResult[]> {
+  getFiltered<TResult>(filter: object): Observable<TResult[]> {
     if (!this.urlPath) return null;
     return this.api.get<TResult[]>(this.urlPath, { params: FilterToParams(filter) });
   }

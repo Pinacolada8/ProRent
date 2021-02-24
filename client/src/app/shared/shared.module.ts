@@ -16,6 +16,7 @@ import { CustomSearchBarComponent } from "./components/custom-search-bar/custom-
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from "ng-pick-datetime";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { Ng5SliderModule } from "ng5-slider";
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     OwlNativeDateTimeModule,
     BrowserModule,
     BrowserAnimationsModule,
+    Ng5SliderModule,
   ],
   exports: [
     ButtonSaveComponent,

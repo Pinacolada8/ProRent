@@ -54,12 +54,12 @@ export class CourseComponent implements OnInit {
   });
   searchBarFilter: object = {};
 
-  constructor(private api: BaseApiService<Course>) {
+  constructor(private api: BaseApiService) {
     api.urlPath = "/api/v1/curso";
   }
 
   getData() {
-    this.api.getFiltered(this.searchBarFilter).subscribe(
+    this.api.getFiltered<Course>(this.searchBarFilter).subscribe(
       (data) => {
         this.values = data;
       },

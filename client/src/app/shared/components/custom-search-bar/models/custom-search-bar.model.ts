@@ -20,12 +20,17 @@ export interface SearchField {
   type?: FieldType;
   options?: any[];
   optionsDisplayName?: (obj: any) => any;
+  floor?: number;
+  ceil?: number;
+  step?: number;
 }
 
 export const enum FieldType {
   TEXT = 0,
+  NUMBER,
   SELECT,
   MULT_SELECT,
   TEXT_AUTO_COMPLETE,
-  DATE_RANGE
+  DATE_RANGE,
+  VALUE_RANGE,
 }

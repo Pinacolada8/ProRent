@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using SDK.EntityRepository.Entities;
 
 namespace SDK.EntityRepository
@@ -39,5 +40,6 @@ namespace SDK.EntityRepository
         Task<bool> Any(Expression<Func<T, bool>> predicate);
         Task<long> CountAll();
         Task<long> CountWhere(Expression<Func<T, bool>> predicate);
+        DbContext GetContext();
     }
 }
