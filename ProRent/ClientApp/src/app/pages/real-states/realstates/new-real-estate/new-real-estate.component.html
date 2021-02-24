@@ -60,7 +60,7 @@
         [disabled]="data.disableEdition"
         matInput
         type="number"
-        [(ngModel)]="data.realEstate.BedRoomQt"
+        [(ngModel)]="data.realEstate.bedRoomQt"
       />
     </mat-form-field>
 
@@ -70,7 +70,7 @@
         [disabled]="data.disableEdition"
         matInput
         type="number"
-        [(ngModel)]="data.realEstate.SuiteQt"
+        [(ngModel)]="data.realEstate.suiteQt"
       />
     </mat-form-field>
 
@@ -80,7 +80,7 @@
         [disabled]="data.disableEdition"
         matInput
         type="number"
-        [(ngModel)]="data.realEstate.LivingRoomQt"
+        [(ngModel)]="data.realEstate.livingRoomQt"
       />
     </mat-form-field>
 
@@ -90,7 +90,7 @@
         [disabled]="data.disableEdition"
         matInput
         type="number"
-        [(ngModel)]="data.realEstate.GarageParkingSpace"
+        [(ngModel)]="data.realEstate.garageParkingSpace"
       />
     </mat-form-field>
 
@@ -100,16 +100,16 @@
         [disabled]="data.disableEdition"
         matInput
         type="number"
-        [(ngModel)]="data.realEstate.Area"
+        [(ngModel)]="data.realEstate.area"
       />
     </mat-form-field>
 
-    <mat-slide-toggle [disabled]="data.disableEdition" [(ngModel)]="data.realEstate.Closet"
+    <mat-slide-toggle [disabled]="data.disableEdition" [(ngModel)]="data.realEstate.closet"
       >Armario embutido</mat-slide-toggle
     >
 
     <mat-slide-toggle
-      [(ngModel)]="data.realEstate.Doorman"
+      [(ngModel)]="data.realEstate.doorman"
       *ngIf="data.realEstate.type == ApartmentRealEstateType"
       >Porteiro 24Hrs</mat-slide-toggle
     >
@@ -131,7 +131,7 @@
         matInput
         type="number"
         min="0"
-        [(ngModel)]="data.realEstate.CondominiumFee"
+        [(ngModel)]="data.realEstate.condominiumFee"
       />
     </mat-form-field>
 
@@ -142,7 +142,7 @@
         matInput
         type="number"
         min="0"
-        [(ngModel)]="data.realEstate.RentValue"
+        [(ngModel)]="data.realEstate.rentValue"
       />
     </mat-form-field>
 
@@ -153,7 +153,7 @@
         matInput
         type="number"
         min="0"
-        [(ngModel)]="data.realEstate.RentValue"
+        [(ngModel)]="data.realEstate.rentValue"
       />
     </mat-form-field>
   </div>
