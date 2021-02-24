@@ -1,9 +1,12 @@
-﻿using ProRent.Domain.Enums;
+﻿using System.Runtime.InteropServices.ComTypes;
+using ProRent.Domain.Enums;
 
 namespace ProRent.Domain.ViewModels
 {
     public class RealEstateViewModel
     {
+        public long Id { get; set; }
+
         public RealEstateType Type { get; set; }
 
         public string Name { get; set; }
