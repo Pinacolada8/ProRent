@@ -27,7 +27,7 @@ namespace ProRent.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<Visit>> Get()
+        public async Task<ActionResult<VisitViewModel>> Get()
         {
             var visit = await _visitRepository.FindAllIncluding(x => x.RealEstate);
             var visitViewModel = visit.Select(x => new VisitViewModel()
