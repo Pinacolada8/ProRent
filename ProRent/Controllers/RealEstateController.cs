@@ -123,10 +123,10 @@ namespace ProRent.Controllers
                 Area = dto.Area.Value,
                 Closet = dto.Closet.Value,
                 Description = dto.Description,
-                Floor = dto.Floor,
-                CondominiumFee = dto.CondominiumFee,
+                Floor = dto.Type == RealEstateType.APARTMENT ? dto.Floor: null,
+                CondominiumFee = dto.Type == RealEstateType.APARTMENT ? dto.CondominiumFee: null,
                 RentValue = dto.RentValue.Value,
-                Doorman = dto.Doorman.Value
+                Doorman = dto.Type == RealEstateType.APARTMENT ? dto.Doorman.Value: null
             });
 
             return Ok(realEstate);
