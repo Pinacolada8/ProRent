@@ -34,6 +34,7 @@ namespace ProRent.Controllers
             var realEstates = await _realEstateRepository.Filter(filter);
             var realEstatesViewModel = realEstates.Select(x => new RealEstateViewModel()
             {
+                Id = x.Id,
                 Area = Convert.ToInt32(x.Area),
                 Name = x.Name,
                 Address = x.Street + ", " + x.Neighborhood,
@@ -48,25 +49,14 @@ namespace ProRent.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<RealEstateViewModel>> Get([FromRoute] int id)
+        public async Task<ActionResult<RealEstate>> Get([FromRoute] int id)
         {
             if (await _realEstateRepository.Find(id) == null)
                 return BadRequest("RealEstate with this id not found.");
 
             var realEstate = await _realEstateRepository.Find(id);
-            var realEstateViewModel = new RealEstateViewModel()
-            {
-                Area = Convert.ToInt32(realEstate.Area),
-                Name = realEstate.Name,
-                Address = realEstate.Street + ", " + realEstate.Neighborhood,
-                Type = realEstate.Type,
-                BedRoomQt = realEstate.BedRoomQt,
-                SuiteQt = realEstate.SuiteQt,
-                GarageParkingSpace = realEstate.GarageParkingSpace,
-                RentValue = realEstate.RentValue
-            };
 
-            return Ok(realEstateViewModel);
+            return Ok(realEstate);
         }
 
 

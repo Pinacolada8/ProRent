@@ -27,11 +27,12 @@ namespace ProRent.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<RealEstate>> Get()
+        public async Task<ActionResult<Visit>> Get()
         {
             var visit = await _visitRepository.FindAllIncluding(x => x.RealEstate);
             var visitViewModel = visit.Select(x => new VisitViewModel()
             {
+                Id = x.Id,
                 Type = x.RealEstate.Type,
                 Name = x.RealEstate.Name,
                 Number = x.RealEstate.Number,
@@ -46,24 +47,13 @@ namespace ProRent.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<RealEstate>> Get([FromRoute] int id)
+        public async Task<ActionResult<Visit>> Get([FromRoute] int id)
         {
             if (await _visitRepository.Find(id) == null)
                 return BadRequest("A visit with this id not found.");
             var visit = await _visitRepository.FindIncluding(id, x => x.RealEstate);
-            var visitViewModel = new VisitViewModel()
-            {
-                Type = visit.RealEstate.Type,
-                Name = visit.RealEstate.Name,
-                Number = visit.RealEstate.Number,
-                Street = visit.RealEstate.Street,
-                Neighborhood = visit.RealEstate.Neighborhood,
-                Area = visit.RealEstate.Area,
-                RentValue = visit.RealEstate.RentValue,
-                VisitTime = visit.VisitTime
-            };
 
-            return Ok(visitViewModel);
+            return Ok(visit);
         }
 
         [HttpPost]
