@@ -17,9 +17,5 @@ namespace ProRent.Domain.Filters
         public double? MaxRentValue { get; set; }
 
         public double? MinRentValue { get; set; }
-
-        public double? MaxCondoFee { get; set; }
-
-        public double? MinCondoFee { get; set; }
     }
 }

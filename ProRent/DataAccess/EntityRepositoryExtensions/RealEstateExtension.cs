@@ -27,22 +27,16 @@ namespace ProRent.DataAccess.EntityRepositoryExtensions
                 query = query.Where(x => (x.Street + x.Neighborhood).ToLower().Contains(filter.Address.ToLower()));
 
             if (filter.MaxRentValue.HasValue) 
-                query = query.Where(x => x.RentValue < filter.MaxRentValue.Value);
+                query = query.Where(x => x.RentValue <= filter.MaxRentValue.Value);
 
             if (filter.MinRentValue.HasValue)
-                query = query.Where(x => x.RentValue > filter.MinRentValue.Value);
-
-            if (filter.MaxCondoFee.HasValue)
-                query = query.Where(x => x.CondominiumFee < filter.MaxCondoFee.Value);
-
-            if (filter.MinCondoFee.HasValue)
-                query = query.Where(x => x.CondominiumFee > filter.MinCondoFee.Value);
+                query = query.Where(x => x.RentValue >= filter.MinRentValue.Value);
 
             if (filter.MaxArea.HasValue)
-                query = query.Where(x => x.Area < filter.MaxArea.Value);
+                query = query.Where(x => x.Area <= filter.MaxArea.Value);
 
             if (filter.MinArea.HasValue)
-                query = query.Where(x => x.Area > filter.MinArea.Value);
+                query = query.Where(x => x.Area >= filter.MinArea.Value);
 
             return await query.ToListAsync();
         }
