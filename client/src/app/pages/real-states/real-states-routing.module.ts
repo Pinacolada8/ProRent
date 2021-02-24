@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { CompleteRoutes, CompleteRoutesName } from "src/app/shared/extensions/CompleteRoutes";
-import { StudentComponent } from "../user-management/student/student.component";
 import { RealstatesComponent } from "./realstates/realstates.component";
 
 const routes: CompleteRoutes = [
@@ -15,7 +14,7 @@ const routes: CompleteRoutes = [
   {
     path: "realEstates/visits",
     // TODO
-    component: StudentComponent,
+    component: RealstatesComponent,
     icon: "assignment_ind",
     name: "Visitas",
   },
