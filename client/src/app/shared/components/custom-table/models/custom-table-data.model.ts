@@ -1,3 +1,4 @@
+import { CustomTableComponent } from './../custom-table.component';
 export class CustomTableDefinition {
   columnDefinitions: ColumnDefinition[];
   displayedColumns?: string[];
@@ -27,5 +28,5 @@ export interface ColumnDefinition {
   isButton?: boolean;
   icon?: string;
   iconSvg?: string;
-  onClick?: (element?: any, columnDefinition?: ColumnDefinition, event?: MouseEvent) => void;
+  onClick?: (element?: any, columnDefinition?: ColumnDefinition, event?: MouseEvent, tableComponent?: CustomTableComponent) => void;
 }

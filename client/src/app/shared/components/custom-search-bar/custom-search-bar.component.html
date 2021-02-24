@@ -12,6 +12,20 @@
       </mat-form-field>
       <!-- TEXT FIELD END -->
 
+      <!-- VALUE FIELD -->
+      <mat-form-field *ngIf="isNumberField(field)" class="flex-child element-padding">
+        <mat-label>{{ field.name }}</mat-label>
+        <input
+          matInput
+          type="number"
+          min="{{ field.floor }}"
+          max="{{ field.ceil }}"
+          [ngModel]="filterObj[field.filterName]"
+          (ngModelChange)="setNumberFieldFilter($event, field)"
+        />
+      </mat-form-field>
+      <!-- VALUE FIELD END -->
+
       <!-- SELECT FIELD -->
       <mat-form-field *ngIf="isSelectField(field)" class="flex-child element-padding">
         <mat-label>{{ field.name }}</mat-label>
@@ -28,7 +42,6 @@
       <!-- SELECT FIELD END -->
 
       <!-- DATE RANGE FIELD -->
-      <!-- class="date-input" -->
       <div *ngIf="isDateRangeField(field)" class="flex-child flex-parent element-padding">
         <mat-form-field class="flex-child">
           <mat-label>{{ field.name }}</mat-label>
@@ -44,16 +57,37 @@
         <owl-date-time #dt12></owl-date-time>
       </div>
       <!-- DATE RANGE FIELD END -->
+
+      <!-- VALUE RANGE FIELD -->
+      <div *ngIf="isValueRangeField(field)" class="flex-child flex-parent element-padding">
+        <ng5-slider
+          [value]="filterObj[field.filterName]"
+          (valueChange)="filterObj[field.filterName] = field.filterValue($event)"
+          [options]="getNg5SliderOptions(field)"
+        ></ng5-slider>
+      </div>
+      <!-- VALUE RANGE FIELD END -->
     </div>
 
     <div class="btns-form-field">
+      <button
+        *ngIf="!definition?.addButtonHidden"
+        mat-icon-button
+        (click)="add()"
+        color="primary"
+        class="search-icons"
+        [matTooltip]="definition?.addButtonTooltip"
+      >
+        <mat-icon svgIcon="add"></mat-icon>
+      </button>
+
       <button
         *ngIf="!definition?.clearButtonHidden"
         mat-icon-button
         (click)="clear()"
         color="primary"
         class="search-icons"
-        matTooltip="definition?.clearButtonTooltip"
+        [matTooltip]="definition?.clearButtonTooltip"
       >
         <mat-icon svgIcon="eraser"></mat-icon>
       </button>
@@ -64,7 +98,7 @@
         (click)="search()"
         color="primary"
         class="search-icons"
-        matTooltip="definition?.searchButtonTooltip"
+        [matTooltip]="definition?.searchButtonTooltip"
       >
         <mat-icon svgIcon="search"></mat-icon>
       </button>

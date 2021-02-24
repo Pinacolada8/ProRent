@@ -6,6 +6,8 @@ import {
   Output,
   EventEmitter,
 } from "@angular/core";
+import { LabelType, Options } from "ng5-slider";
+import { isNullOrUndefined } from "../../Functions/value-checks";
 import {
   CustomSearchBarDefinition,
   FieldType,
@@ -25,6 +27,7 @@ export class CustomSearchBarComponent implements OnInit {
   @Output() instance: CustomSearchBarComponent;
   @Output() searchEvent = new EventEmitter<object>();
   @Output() clearEvent = new EventEmitter<object>();
+  @Output() addEvent = new EventEmitter<object>();
 
   get filterObj(): object {
     return this.filter;
@@ -44,13 +47,23 @@ export class CustomSearchBarComponent implements OnInit {
 
     if (!this.definition.clearButtonTooltip) this.definition.clearButtonTooltip = "Clear";
     if (!this.definition.searchButtonTooltip) this.definition.searchButtonTooltip = "Search";
+    if (!this.definition.addButtonTooltip) this.definition.addButtonTooltip = "Add";
 
     this.definition.fields.forEach((field) => {
+      if (!field.type) field.type = FieldType.TEXT;
       if (!field.filterName) field.filterName = field.name;
       if (!field.filterValue) field.filterValue = (obj) => obj;
-      if (!field.type) field.type = FieldType.TEXT;
       if (!field.options) field.options = [];
-      if (!field.optionsDisplayName) field.optionsDisplayName = (obj) => obj?.toString() ?? "";
+
+      if (!field.optionsDisplayName)
+        switch (field.type) {
+          case FieldType.VALUE_RANGE:
+            field.optionsDisplayName = null;
+            break;
+          default:
+            field.optionsDisplayName = (obj) => obj?.toString() ?? "";
+            break;
+        }
 
       if (field.defaultValue && !this.filterObj[field.filterName]) {
         this.filterObj[field.filterName] = field.filterValue(field.defaultValue);
@@ -58,9 +71,19 @@ export class CustomSearchBarComponent implements OnInit {
     });
   }
 
+  add() {
+    this.addEvent.emit(this.filter);
+  }
+
   clear() {
+    this.setFilterToDefault(this.filter, this.definition.fields);
     this.clearEvent.emit(this.filter);
-    this.filterObj = {};
+  }
+
+  setFilterToDefault(filter: any, fields: SearchField[]) {
+    fields.forEach((field) => {
+      this.filterObj[field.filterName] = field.defaultValue ?? undefined;
+    });
   }
 
   search() {
@@ -71,11 +94,41 @@ export class CustomSearchBarComponent implements OnInit {
     return field.type === FieldType.TEXT;
   }
 
+  isNumberField(field: SearchField) {
+    return field.type === FieldType.NUMBER;
+  }
+
+  setNumberFieldFilter(value: number, field: SearchField) {
+    if (!isNullOrUndefined(field.floor)) value = value < field.floor ? field.floor : value;
+    if (!isNullOrUndefined(field.ceil)) value = value > field.ceil ? field.ceil : value;
+
+    this.filterObj[field.filterName] = field.filterValue(value);
+  }
+
   isSelectField(field: SearchField) {
     return field.type === FieldType.SELECT;
   }
 
   isDateRangeField(field: SearchField) {
     return field.type === FieldType.DATE_RANGE;
+  }
+
+  isValueRangeField(field: SearchField) {
+    return field.type === FieldType.VALUE_RANGE;
+  }
+
+  getNg5SliderOptions(field?: SearchField) {
+    const options: Options = {
+      floor: field?.floor,
+      ceil: field?.ceil,
+      step: field?.step,
+    };
+
+    if (!isNullOrUndefined(field?.optionsDisplayName))
+      options.translate = (value: number, label: LabelType): string => {
+        return field.optionsDisplayName({ value, label, field });
+      };
+
+    return options;
   }
 }

@@ -3,8 +3,7 @@ import { MultipleRoutes } from "src/app/shared/extensions/CompleteRoutes";
 import { Component, OnInit } from "@angular/core";
 import { Router, RouterEvent, NavigationEnd } from "@angular/router";
 import { ConfirmationModalService } from "src/app/shared/components/confrimation-modal/services/confirmation-modal.service";
-import { UserManagementRoutes } from 'src/app/pages/user-management/user-management-routing.module';
-import { AcademicSystemRoutes } from 'src/app/pages/academic-system/academic-system-routing.module';
+import { RealStatesRoutes } from "src/app/pages/real-states/real-states-routing.module";
 
 type CompleteRouteWithParent = CompleteRoute & { parent: CompleteRoutesName };
 
@@ -20,7 +19,7 @@ export class MenuComponent implements OnInit {
   currentPath: string = "";
 
   constructor(router: Router, public confirmationModal: ConfirmationModalService) {
-    this.multipleRoutes.push(UserManagementRoutes, AcademicSystemRoutes);
+    this.multipleRoutes.push(RealStatesRoutes);
 
     /**
      * Cria um Array que contem todas as rotas em apenas
@@ -42,9 +41,7 @@ export class MenuComponent implements OnInit {
         if (val.url) {
           this.currentPath =
             val.url.split("?")[0] !== "/" ? val.url.split("?")[0] : val.urlAfterRedirects;
-          // Overkill para o problema
-          // while (this.currentPath[0] === "\\") this.currentPath = this.currentPath.substr(1);
-          if (this.currentPath[0] === "/") this.currentPath = this.currentPath.substr(1);
+          while (this.currentPath[0] === "/") this.currentPath = this.currentPath.substr(1);
         }
 
         if (this.currentCompleteRouteName) {

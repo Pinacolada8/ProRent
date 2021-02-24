@@ -27,6 +27,11 @@ namespace ProRent
             {
                 options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
+            services.AddCors(options => options
+                .AddDefaultPolicy(builder =>
+                    builder.AllowAnyOrigin()
+                           .AllowAnyHeader()
+                           .AllowAnyMethod()));
 
             services.AddSwaggerGen();
             // In production, the Angular files will be served from this directory
@@ -51,6 +56,7 @@ namespace ProRent
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseCors();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

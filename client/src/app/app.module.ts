@@ -14,8 +14,8 @@ import { InnerMenuComponent } from "./components/menu/inner-menu/inner-menu.comp
 import { HeaderComponent } from "./components/header/header.component";
 import { HttpInterceptorService } from "./services/http-interceptor.service";
 import { FormsModule } from "@angular/forms";
-import { UserManagementModule } from './pages/user-management/user-management.module';
-import { AcademicSystemModule } from './pages/academic-system/academic-system.module';
+import { RealStatesModule } from './pages/real-states/real-states.module';
+import { Ng5SliderModule } from "ng5-slider";
 
 export const unprotectedResources: string[] = ["/assets"];
 
@@ -34,16 +34,14 @@ registerLocaleData(localePt, "pt");
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    UserManagementModule,
     MaterialModule,
     HttpClientModule,
     SharedModule,
     FormsModule,
-    AcademicSystemModule,
+    RealStatesModule,
+    Ng5SliderModule
   ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
-  ],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
