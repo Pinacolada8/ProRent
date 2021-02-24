@@ -9,7 +9,6 @@ import { RealEstateModal } from "../models/real-estate-modal";
   styleUrls: ["./new-real-estate.component.scss"],
 })
 export class NewRealEstateComponent implements OnInit {
-  ApartmentRealEstateType = RealEstateType.APARTMENT;
   RealEstateTypes: { value: RealEstateType; displayName: string }[] = [];
 
   constructor(
@@ -31,5 +30,10 @@ export class NewRealEstateComponent implements OnInit {
 
   save() {
     this.modalRef.close(this.data.realEstate);
+  }
+
+  isApartmentRealEstateType(typeToTest: RealEstateType | number | string) {
+    const asType = RealEstateType[typeToTest];
+    return asType === RealEstateType.APARTMENT;
   }
 }

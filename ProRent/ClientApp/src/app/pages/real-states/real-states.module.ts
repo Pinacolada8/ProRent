@@ -7,9 +7,10 @@ import { RealstatesComponent } from "./realstates/realstates.component";
 import { SharedModule } from "src/app/shared/shared.module";
 import { NewRealEstateComponent } from "./realstates/new-real-estate/new-real-estate.component";
 import { FormsModule } from "@angular/forms";
+import { RealEstateVisitsComponent } from './real-estate-visits/real-estate-visits.component';
 
 @NgModule({
-  declarations: [RealstatesComponent, NewRealEstateComponent],
+  declarations: [RealstatesComponent, NewRealEstateComponent, RealEstateVisitsComponent],
   imports: [CommonModule, RealStatesRoutingModule, SharedModule, MaterialModule, FormsModule],
   entryComponents: [NewRealEstateComponent],
 })

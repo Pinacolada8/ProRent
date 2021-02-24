@@ -110,11 +110,11 @@
 
     <mat-slide-toggle
       [(ngModel)]="data.realEstate.doorman"
-      *ngIf="data.realEstate.type == ApartmentRealEstateType"
+      *ngIf="isApartmentRealEstateType(data.realEstate.type)"
       >Porteiro 24Hrs</mat-slide-toggle
     >
 
-    <mat-form-field class="component-field" *ngIf="data.realEstate.type == ApartmentRealEstateType">
+    <mat-form-field class="component-field" *ngIf="isApartmentRealEstateType(data.realEstate.type)">
       <mat-label>Andar</mat-label>
       <input
         [disabled]="data.disableEdition"
@@ -124,7 +124,7 @@
       />
     </mat-form-field>
 
-    <mat-form-field class="component-field" *ngIf="data.realEstate.type == ApartmentRealEstateType">
+    <mat-form-field class="component-field" *ngIf="isApartmentRealEstateType(data.realEstate.type)">
       <mat-label>Preço do condominio</mat-label>
       <input
         [disabled]="data.disableEdition"
@@ -151,9 +151,8 @@
       <input
         [disabled]="data.disableEdition"
         matInput
-        type="number"
-        min="0"
-        [(ngModel)]="data.realEstate.rentValue"
+        type="text"
+        [(ngModel)]="data.realEstate.description"
       />
     </mat-form-field>
   </div>
