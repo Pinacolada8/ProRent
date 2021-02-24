@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using ProRent.DataAccess.EntityRepositoryExtensions;
 using ProRent.Domain.DTO;
+using ProRent.Domain.Filters;
 using ProRent.Domain.Models;
 using ProRent.Domain.ViewModels;
 using SDK.EntityRepository;
@@ -27,9 +29,9 @@ namespace ProRent.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<VisitViewModel>> Get()
+        public async Task<ActionResult<VisitViewModel>> Get([FromQuery] VisitFilter filter)
         {
-            var visit = await _visitRepository.FindAllIncluding(x => x.RealEstate);
+            var visit = await _visitRepository.Filter(filter);
             var visitViewModel = visit.Select(x => new VisitViewModel()
             {
                 Id = x.Id,
