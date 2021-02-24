@@ -14,8 +14,8 @@ namespace ProRent.Domain.Filters
 
         public double? MinArea { get; set; }
 
-        public double? MaxRentValue { get; set; }
+        public double? maxRent { get; set; }
 
-        public double? MinRentValue { get; set; }
+        public double? minRent { get; set; }
     }
 }

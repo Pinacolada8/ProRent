@@ -26,11 +26,11 @@ namespace ProRent.DataAccess.EntityRepositoryExtensions
             if (!string.IsNullOrWhiteSpace(filter.Address))
                 query = query.Where(x => (x.Street + x.Neighborhood).ToLower().Contains(filter.Address.ToLower()));
 
-            if (filter.MaxRentValue.HasValue) 
-                query = query.Where(x => x.RentValue <= filter.MaxRentValue.Value);
+            if (filter.maxRent.HasValue) 
+                query = query.Where(x => x.RentValue <= filter.maxRent.Value);
 
-            if (filter.MinRentValue.HasValue)
-                query = query.Where(x => x.RentValue >= filter.MinRentValue.Value);
+            if (filter.minRent.HasValue)
+                query = query.Where(x => x.RentValue >= filter.minRent.Value);
 
             if (filter.MaxArea.HasValue)
                 query = query.Where(x => x.Area <= filter.MaxArea.Value);
