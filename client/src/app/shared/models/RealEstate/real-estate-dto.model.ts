@@ -1,5 +1,6 @@
+import { RealEstateType } from 'src/app/shared/enums/real-estate-type.enum';
 export class RealEstateDTO {
-  Type: number;
+  Type: RealEstateType = RealEstateType.HOUSE;
   Name: string;
   Number: number;
   Street: string;
@@ -12,7 +13,7 @@ export class RealEstateDTO {
   LivingRoomQt: number;
   GarageParkingSpace: number;
   Area: number;
-  Closet?: boolean;
+  Closet: boolean = false;
   Description?: string;
   Floor?: number;
   CondominiumFee?: number;

@@ -16,6 +16,7 @@ import { RealEstateType, RealEstateTypeToString } from "src/app/shared/enums/rea
 import { IRealEstateViewModel } from "src/app/shared/models/RealEstate/real-estate-viewmodel.model";
 import { BaseApiService } from "src/app/services/base-api.service";
 import { MatDialog } from "@angular/material/dialog";
+import { ConfirmationModalService } from "src/app/shared/components/confrimation-modal/services/confirmation-modal.service";
 
 @Component({
   templateUrl: "./realstates.component.html",
@@ -73,8 +74,8 @@ export class RealstatesComponent implements OnInit {
         customCellClass: "column-small",
         isButton: true,
         iconSvg: "eye",
-        onClick: (element) => {
-          console.log("Detail", element);
+        onClick: (element: IRealEstateViewModel) => {
+          this.details(element.id);
         },
       },
       {
@@ -83,8 +84,8 @@ export class RealstatesComponent implements OnInit {
         customCellClass: "column-small",
         isButton: true,
         iconSvg: "edit",
-        onClick: (element) => {
-          console.log("Edit", element);
+        onClick: (element: IRealEstateViewModel) => {
+          this.update(element.id);
         },
       },
       {
@@ -93,8 +94,8 @@ export class RealstatesComponent implements OnInit {
         customCellClass: "column-small",
         isButton: true,
         iconSvg: "delete",
-        onClick: (element) => {
-          console.log("Delete", element);
+        onClick: (element: IRealEstateViewModel) => {
+          this.delete(element.id);
         },
       },
     ] as ColumnDefinition[],
@@ -141,7 +142,11 @@ export class RealstatesComponent implements OnInit {
   });
   searchBarFilter: RealEstateFilter = {};
 
-  constructor(private api: BaseApiService, private dialog: MatDialog) {
+  constructor(
+    private api: BaseApiService,
+    private dialog: MatDialog,
+    private confirmationModal: ConfirmationModalService
+  ) {
     api.urlPath = "/api/realestate";
   }
 
@@ -164,7 +169,7 @@ export class RealstatesComponent implements OnInit {
         data: new RealEstateModal({
           title: "Detalhes do Imovel",
           disableEdition: true,
-          realEstate: result
+          realEstate: result,
         }),
       });
     });
@@ -177,8 +182,34 @@ export class RealstatesComponent implements OnInit {
         filter,
       }),
     });
-    modal.afterClosed().subscribe((result) => {
-      if (!isNullOrUndefined(result)) this.saveNewRealEstate(result);
+    modal.afterClosed().subscribe((realEstate) => {
+      if (!isNullOrUndefined(realEstate)) this.saveNewRealEstate(realEstate);
+    });
+  }
+
+  update(id: number) {
+    this.api.get<RealEstateDTO>(id).subscribe((result) => {
+      const modal = this.dialog.open(NewRealEstateComponent, {
+        data: new RealEstateModal({
+          title: "Atualizar Imovel",
+          realEstate: result,
+        }),
+      });
+      modal.afterClosed().subscribe((realEstate) => {
+        if (!isNullOrUndefined(realEstate)) this.updateRealEstate(id, realEstate);
+      });
+    });
+  }
+
+  delete(id: number) {
+    // TODO: Remake all this confirmation modal mess
+    this.confirmationModal.openConfirmationModal({
+      title: "Confirmar Exclusão",
+      description: "Tem certeza que deseja excluir?",
+    });
+    const subs = this.confirmationModal.confirmationResult.subscribe((result) => {
+      if (result) this.deleteRealEstate(id);
+      subs.unsubscribe();
     });
   }
 

@@ -145,14 +145,25 @@
         [(ngModel)]="data.realEstate.RentValue"
       />
     </mat-form-field>
+
+     <mat-form-field class="component-field">
+      <mat-label>Descrição</mat-label>
+      <input
+        [disabled]="data.disableEdition"
+        matInput
+        type="number"
+        min="0"
+        [(ngModel)]="data.realEstate.RentValue"
+      />
+    </mat-form-field>
   </div>
 </mat-dialog-content>
 
-<mat-dialog-actions align="end">
+<mat-dialog-actions align="end" *ngIf="!data.disableEdition">
   <button class="mat-raised-button" (click)="close()">
     Cancelar
   </button>
-  <button class="mat-raised-button mat-primary" (click)="save()">
+  <button class="mat-raised-button mat-primary" (click)="save()" >
     Salvar
   </button>
 </mat-dialog-actions>
