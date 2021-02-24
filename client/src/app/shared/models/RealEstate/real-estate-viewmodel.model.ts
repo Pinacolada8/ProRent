@@ -1,7 +1,7 @@
 import { RealEstateType } from "../../enums/real-estate-type.enum";
 
 export interface IRealEstateViewModel {
-  type: RealEstateType;
+  type: string;
   name: string;
   address: string;
   bedRoomQt: number;

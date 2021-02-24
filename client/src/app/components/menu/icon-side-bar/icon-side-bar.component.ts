@@ -55,6 +55,11 @@ export class IconSideBarComponent implements OnInit {
     );
 
     this.matIconRegistry.addSvgIcon(
+      "add",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("#assets/icons/document.svg")
+    );
+
+    this.matIconRegistry.addSvgIcon(
       "gear-single-color",
       this.domSanitizer.bypassSecurityTrustResourceUrl("#assets/icons/gear-single-color.svg")
     );

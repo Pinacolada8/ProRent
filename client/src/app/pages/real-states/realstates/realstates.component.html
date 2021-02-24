@@ -1,2 +1,8 @@
-<app-custom-search-bar [definition]="searchBarDefinition" [filter]="searchBarFilter"></app-custom-search-bar>
+<app-custom-search-bar
+  [definition]="searchBarDefinition"
+  [filter]="searchBarFilter"
+  (searchEvent)="refreshData()"
+  (clearEvent)="refreshData()"
+  (addEvent)="addNewRealEstate($event)"
+></app-custom-search-bar>
 <app-custom-table [tableDefinition]="tableDefinition" [values]="values"></app-custom-table>

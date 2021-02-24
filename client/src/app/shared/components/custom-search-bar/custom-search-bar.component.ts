@@ -27,6 +27,7 @@ export class CustomSearchBarComponent implements OnInit {
   @Output() instance: CustomSearchBarComponent;
   @Output() searchEvent = new EventEmitter<object>();
   @Output() clearEvent = new EventEmitter<object>();
+  @Output() addEvent = new EventEmitter<object>();
 
   get filterObj(): object {
     return this.filter;
@@ -46,6 +47,7 @@ export class CustomSearchBarComponent implements OnInit {
 
     if (!this.definition.clearButtonTooltip) this.definition.clearButtonTooltip = "Clear";
     if (!this.definition.searchButtonTooltip) this.definition.searchButtonTooltip = "Search";
+    if (!this.definition.addButtonTooltip) this.definition.addButtonTooltip = "Add";
 
     this.definition.fields.forEach((field) => {
       if (!field.type) field.type = FieldType.TEXT;
@@ -69,9 +71,19 @@ export class CustomSearchBarComponent implements OnInit {
     });
   }
 
+  add() {
+    this.addEvent.emit(this.filter);
+  }
+
   clear() {
+    this.setFilterToDefault(this.filter, this.definition.fields);
     this.clearEvent.emit(this.filter);
-    this.filterObj = {};
+  }
+
+  setFilterToDefault(filter: any, fields: SearchField[]) {
+    fields.forEach((field) => {
+      this.filterObj[field.filterName] = field.defaultValue ?? undefined;
+    });
   }
 
   search() {
@@ -91,8 +103,6 @@ export class CustomSearchBarComponent implements OnInit {
     if (!isNullOrUndefined(field.ceil)) value = value > field.ceil ? field.ceil : value;
 
     this.filterObj[field.filterName] = field.filterValue(value);
-    console.log(this);
-    console.log(this.filterObj);
   }
 
   isSelectField(field: SearchField) {

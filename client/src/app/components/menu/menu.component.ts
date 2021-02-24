@@ -43,7 +43,7 @@ export class MenuComponent implements OnInit {
         if (val.url) {
           this.currentPath =
             val.url.split("?")[0] !== "/" ? val.url.split("?")[0] : val.urlAfterRedirects;
-          while (this.currentPath[0] === "\\") this.currentPath = this.currentPath.substr(1);
+          while (this.currentPath[0] === "/") this.currentPath = this.currentPath.substr(1);
         }
 
         if (this.currentCompleteRouteName) {

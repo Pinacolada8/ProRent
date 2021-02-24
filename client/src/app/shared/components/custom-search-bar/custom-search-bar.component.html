@@ -18,10 +18,10 @@
         <input
           matInput
           type="number"
-          min="{{field.floor}}"
-          max="{{field.ceil}}"
+          min="{{ field.floor }}"
+          max="{{ field.ceil }}"
           [ngModel]="filterObj[field.filterName]"
-          (ngModelChange)="setNumberFieldFilter($event,field)"
+          (ngModelChange)="setNumberFieldFilter($event, field)"
         />
       </mat-form-field>
       <!-- VALUE FIELD END -->
@@ -71,12 +71,23 @@
 
     <div class="btns-form-field">
       <button
+        *ngIf="!definition?.addButtonHidden"
+        mat-icon-button
+        (click)="add()"
+        color="primary"
+        class="search-icons"
+        [matTooltip]="definition?.addButtonTooltip"
+      >
+        <mat-icon svgIcon="add"></mat-icon>
+      </button>
+
+      <button
         *ngIf="!definition?.clearButtonHidden"
         mat-icon-button
         (click)="clear()"
         color="primary"
         class="search-icons"
-        matTooltip="definition?.clearButtonTooltip"
+        [matTooltip]="definition?.clearButtonTooltip"
       >
         <mat-icon svgIcon="eraser"></mat-icon>
       </button>
@@ -87,7 +98,7 @@
         (click)="search()"
         color="primary"
         class="search-icons"
-        matTooltip="definition?.searchButtonTooltip"
+        [matTooltip]="definition?.searchButtonTooltip"
       >
         <mat-icon svgIcon="search"></mat-icon>
       </button>

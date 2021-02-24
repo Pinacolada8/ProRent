@@ -1,3 +1,4 @@
+import { NewRealEstateComponent } from "./new-real-estate/new-real-estate.component";
 import { RealEstateFilter } from "./../../../shared/models/RealEstate/real-estate-filter";
 import { Component, OnInit } from "@angular/core";
 import {
@@ -8,9 +9,10 @@ import {
   CustomTableDefinition,
   ColumnDefinition,
 } from "src/app/shared/components/custom-table/models/custom-table-data.model";
-import { RealEstateType } from "src/app/shared/enums/real-estate-type.enum";
+import { RealEstateType, RealEstateTypeToString } from "src/app/shared/enums/real-estate-type.enum";
 import { IRealEstateViewModel } from "src/app/shared/models/RealEstate/real-estate-viewmodel.model";
 import { BaseApiService } from "src/app/services/base-api.service";
+import { MatDialog } from "@angular/material/dialog";
 
 @Component({
   templateUrl: "./realstates.component.html",
@@ -23,6 +25,9 @@ export class RealstatesComponent implements OnInit {
         name: "type",
         displayName: "Tipo",
         allowSorting: true,
+        getValueFunc: (realEstate: IRealEstateViewModel) => {
+          return RealEstateTypeToString(RealEstateType[realEstate.type]);
+        },
       },
       {
         name: "name",
@@ -129,11 +134,16 @@ export class RealstatesComponent implements OnInit {
       },
       { name: "Endereço", type: FieldType.TEXT, filterName: "address " },
     ],
+    addButtonHidden: false,
   });
-  searchBarFilter: RealEstateFilter = new RealEstateFilter();
+  searchBarFilter: RealEstateFilter = {};
 
-  constructor(private api: BaseApiService) {
+  constructor(private api: BaseApiService, private dialog: MatDialog) {
     api.urlPath = "/api/realestate";
+  }
+
+  ngOnInit(): void {
+    this.refreshData();
   }
 
   refreshData() {
@@ -145,5 +155,15 @@ export class RealstatesComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {}
+  addNewRealEstate(filter?: RealEstateFilter) {
+    const modal = this.dialog.open(
+      NewRealEstateComponent,
+      {
+        data: {
+          filter,
+        },
+      }
+    );
+    modal.afterClosed().subscribe((result) => {});
+  }
 }

@@ -6,25 +6,25 @@ import { RealstatesComponent } from "./realstates/realstates.component";
 
 const routes: CompleteRoutes = [
   {
-    path: "realStates/register",
+    path: "realEstates/register",
     // TODO
     component: RealstatesComponent,
-    icon: "person",
-    name: "Visits",
+    icon: "assignment",
+    name: "Registro",
   },
   {
-    path: "realStates/visits",
+    path: "realEstates/visits",
     // TODO
     component: StudentComponent,
-    icon: "person",
-    name: "Register",
+    icon: "assignment_ind",
+    name: "Visitas",
   },
 ];
 
 export const RealStatesRoutes: CompleteRoutesName = {
   routes,
-  name: "Properties",
-  icon: "group",
+  name: "Aluguel",
+  icon: "house",
   isSelected: true,
 };
 

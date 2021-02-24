@@ -4,6 +4,8 @@ export class CustomSearchBarDefinition {
   searchButtonTooltip?: string;
   clearButtonHidden?: boolean;
   clearButtonTooltip?: string;
+  addButtonHidden?: boolean = true;
+  addButtonTooltip?: string;
 
   constructor(obj: Partial<CustomSearchBarDefinition>) {
     for (const prop of Object.keys(obj)) {
