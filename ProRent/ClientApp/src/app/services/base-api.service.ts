@@ -11,27 +11,27 @@ export class BaseApiService {
 
   urlPath: string = null;
 
-  getFiltered<TResult>(filter: object): Observable<TResult[]> {
+  getFiltered<TResult>(filter: object, urlPath: string = this.urlPath): Observable<TResult[]> {
     if (!this.urlPath) return null;
     return this.api.get<TResult[]>(this.urlPath, { params: FilterToParams(filter) });
   }
 
-  get<TResult>(id: number): Observable<TResult> {
+  get<TResult>(id: number, urlPath: string = this.urlPath): Observable<TResult> {
     if (!this.urlPath) return null;
     return this.api.get<TResult>(this.urlPath + `/${id}`);
   }
 
-  post<TResult>(body: TResult): Observable<TResult> {
-    if (!this.urlPath) return null;
-    return this.api.post<TResult>(this.urlPath, body);
+  post<TResult>(body: TResult, urlPath: string = this.urlPath): Observable<TResult> {
+    if (!urlPath) return null;
+    return this.api.post<TResult>(urlPath, body);
   }
 
-  put<TResult>(id: number, body: TResult): Observable<TResult> {
+  put<TResult>(id: number, body: TResult, urlPath: string = this.urlPath): Observable<TResult> {
     if (!this.urlPath) return null;
     return this.api.put<TResult>(this.urlPath + `/${id}`, body);
   }
 
-  delete<TResult>(id: number): Observable<TResult> {
+  delete<TResult>(id: number, urlPath: string = this.urlPath): Observable<TResult> {
     if (!this.urlPath) return null;
     return this.api.delete<TResult>(this.urlPath + `/${id}`);
   }

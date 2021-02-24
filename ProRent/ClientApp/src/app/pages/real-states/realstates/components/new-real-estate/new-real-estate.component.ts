@@ -2,23 +2,23 @@ import { RealEstateTypeToString } from "src/app/shared/enums/real-estate-type.en
 import { RealEstateType } from "src/app/shared/enums/real-estate-type.enum";
 import { Component, Inject, OnInit } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { RealEstateModal } from "../models/real-estate-modal";
+import { RealEstateModal } from "../../models/real-estate-modal";
 
 @Component({
   templateUrl: "./new-real-estate.component.html",
   styleUrls: ["./new-real-estate.component.scss"],
 })
 export class NewRealEstateComponent implements OnInit {
-  RealEstateTypes: { value: RealEstateType; displayName: string }[] = [];
+  RealEstateTypes: { value: string; displayName: string }[] = [];
 
   constructor(
     private modalRef: MatDialogRef<NewRealEstateComponent>,
     @Inject(MAT_DIALOG_DATA) public data: RealEstateModal
   ) {
     this.RealEstateTypes = Object.values(RealEstateType)
-      .filter((x) => !isNaN(<number>x))
-      .map((x: RealEstateType) => {
-        return { value: x, displayName: RealEstateTypeToString(x) };
+      .filter((x) => typeof(x) == "string")
+      .map((x: string) => {
+        return { value: x, displayName: RealEstateTypeToString(RealEstateType[x]) };
       });
   }
 
