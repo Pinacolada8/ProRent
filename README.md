@@ -1,22 +1,19 @@
 # LAB ES - ProRent
 
-**Description**:  ...
-
+**Description**:  Base code for ProRent Website
+  - Developed in C# .Net Core 5.0
   - Cross Platform (Windows, Linux, MacOS)
   - **Status**:  On Development.
 
 ## Dependencies
-  - ASP.NET 5.0
+  - ASP.NET 5.0 [Download](https://dotnet.microsoft.com/download)
   - ANGULAR
-  - NODE
+  - NODE [Download](https://nodejs.org/en/download/)
 
 ## Installation
-
+Download and install .Net Core 5.0 and Node.
 
 ## Configuration
-
-
-## Usage
 
 
 ## How to test the software
@@ -34,5 +31,5 @@ If you have questions, concerns, bug reports, etc, please file an issue in this 
 
 ## Credits and references
 
-1. Project made as a homework for "Engenhari de Software" class of CEFET-MG college.
+1. Project made as a homework for "Engenharia de Software" class of CEFET-MG college.
 2. Project GitHub [GitHub](https://github.com/Pinacolada8/ProRent)
